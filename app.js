@@ -23,6 +23,6 @@ client.hkeys("hash key", function (err, replies) {
 const app = express()
 const port = process.env.PORT || 3001
 
-app.get("/", (req, res) => client.get("string key", res.send))
+app.get("/", (req, res) => client.get("string key", (_, r) => res.send(r)))
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
