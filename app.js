@@ -1,6 +1,6 @@
 const express = require("express")
 const redis = require("redis")
-const client = redis.createClient()
+const client = redis.createClient({ host: "redis-79sr", port: 10000 })
 
 client.on("error", function (err) {
   console.log("Error " + err)
@@ -23,6 +23,6 @@ client.hkeys("hash key", function (err, replies) {
 const app = express()
 const port = process.env.PORT || 3001
 
-app.get("/", (req, res) => res.send(client.get("string key")))
+app.get("/", (req, res) => client.get("string key", res.send))
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
